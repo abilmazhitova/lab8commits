@@ -20,37 +20,28 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mediaPlayer = MediaPlayer.create(this, R.raw.song); // Убедись, что song.mp3 лежит в папке res/raw
+        mediaPlayer = MediaPlayer.create(this, R.raw.song);
         mediaPlayer.setLooping(true);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         createNotificationChannel();
-
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("My Music Player")
                 .setContentText("Music is playing")
-                .setSmallIcon(R.drawable.ic_music) // убедись, что иконка есть
+                .setSmallIcon(R.drawable.ic_music)
                 .build();
-
         startForeground(1, notification);
-
         mediaPlayer.start();
-
         return START_STICKY;
     }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Music Playback",
-                    NotificationManager.IMPORTANCE_LOW
-            );
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
+                    CHANNEL_ID, "Music Playback", NotificationManager.IMPORTANCE_LOW);
+            getSystemService(NotificationManager.class).createNotificationChannel(channel);
         }
     }
 

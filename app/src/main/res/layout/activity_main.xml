@@ -1,36 +1,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:gravity="center"
-    android:padding="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/bg_random"
+    android:padding="24dp">
+
+<TextView
+        android:text="Lab6 - Background Service"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#8B0000"
+        android:layout_marginBottom="24dp" android:layout_height="48dp" android:layout_width="48dp"/>
 
     <EditText
         android:id="@+id/editText_randomCharacter"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:gravity="center"
-        android:hint="Hello World"
-        android:minHeight="48dp" />
-
-    <View android:layout_height="1dp"
-        android:layout_width="100dp"
-        android:background="#888"
-        android:layout_margin="16dp"/>
+        android:hint="Random Character"
+        android:minHeight="48dp"
+        android:inputType="text"
+        />
 
     <Button
         android:id="@+id/button_start"
+        android:text="Start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="START" />
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#EF476F"/>
 
     <Button
         android:id="@+id/button_end"
+        android:text="Stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="STOP" />
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#EF476F"/>
 
     <Button
         android:id="@+id/btn_next"
+        android:text="Next Activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NEXT ACTIVITY" />
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#8338EC"/>
+
 </LinearLayout>

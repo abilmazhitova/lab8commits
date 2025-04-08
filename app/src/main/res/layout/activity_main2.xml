@@ -1,9 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:gravity="center"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/bg_music"
+    android:padding="24dp">
 
     <TextView
-        android:text="This is Activity 2"
-        android:textSize="18sp"
-        android:layout_margin="16dp" android:layout_height="48dp" android:layout_width="48dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lab 6 - Foreground Service"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#800000"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btn_start_music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Music"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btn_stop_music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop Music"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Main" />
+
 </LinearLayout>

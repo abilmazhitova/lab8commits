@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -24,9 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         randomCharacterEditText = findViewById(R.id.editText_randomCharacter);
         broadcastReceiver = new MyBroadcastReceiver();
-        serviceIntent = new Intent(getApplicationContext(), RandomCharacterService.class);
+        serviceIntent = new Intent(this, RandomCharacterService.class);
 
-        // Привязка кнопок к обработчику событий
         findViewById(R.id.button_start).setOnClickListener(this::onClick);
         findViewById(R.id.button_end).setOnClickListener(this::onClick);
         findViewById(R.id.btn_next).setOnClickListener(this::onClick);
@@ -35,31 +35,27 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         int id = view.getId();
-
         if (id == R.id.button_start) {
             startService(serviceIntent);
         } else if (id == R.id.button_end) {
             stopService(serviceIntent);
             randomCharacterEditText.setText("");
         } else if (id == R.id.btn_next) {
-            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-            startActivity(intent);
+            startActivity(new Intent(this, MainActivity2.class));
         }
     }
 
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     protected void onStart() {
         super.onStart();
-        IntentFilter intentFilter = new IntentFilter("my.custom.action.tag.lab6");
+        IntentFilter filter = new IntentFilter("my.custom.action.tag.lab6");
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(broadcastReceiver, intentFilter, Context.RECEIVER_NOT_EXPORTED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(broadcastReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
         } else {
-            registerReceiver(broadcastReceiver, intentFilter);
+            registerReceiver(broadcastReceiver, filter);
         }
     }
-
 
     @Override
     protected void onStop() {
@@ -67,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
-    // Внутренний класс ресивера
     class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
