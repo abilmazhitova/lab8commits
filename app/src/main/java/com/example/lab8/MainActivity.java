@@ -1,5 +1,6 @@
 package com.example.lab8;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,25 +25,41 @@ public class MainActivity extends AppCompatActivity {
         randomCharacterEditText = findViewById(R.id.editText_randomCharacter);
         broadcastReceiver = new MyBroadcastReceiver();
         serviceIntent = new Intent(getApplicationContext(), RandomCharacterService.class);
+
+        // Привязка кнопок к обработчику событий
+        findViewById(R.id.button_start).setOnClickListener(this::onClick);
+        findViewById(R.id.button_end).setOnClickListener(this::onClick);
+        findViewById(R.id.btn_next).setOnClickListener(this::onClick);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_start:
-                startService(serviceIntent);
-                break;
-            case R.id.button_end:
-                stopService(serviceIntent);
-                randomCharacterEditText.setText("");
-                break;
+        int id = view.getId();
+
+        if (id == R.id.button_start) {
+            startService(serviceIntent);
+        } else if (id == R.id.button_end) {
+            stopService(serviceIntent);
+            randomCharacterEditText.setText("");
+        } else if (id == R.id.btn_next) {
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            startActivity(intent);
         }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(broadcastReceiver, new IntentFilter("my.custom.action.tag.lab6"));
+        IntentFilter intentFilter = new IntentFilter("my.custom.action.tag.lab6");
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(broadcastReceiver, intentFilter, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(broadcastReceiver, intentFilter);
+        }
     }
+
 
     @Override
     protected void onStop() {
@@ -54,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
+    // Внутренний класс ресивера
     class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {

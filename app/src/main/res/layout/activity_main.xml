@@ -16,29 +16,21 @@
         android:background="#888"
         android:layout_margin="16dp"/>
 
-    <LinearLayout android:orientation="horizontal"
+    <Button
+        android:id="@+id/button_start"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text="START" />
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical" android:gravity="center"
-            android:layout_width="match_parent" android:layout_height="match_parent">
+    <Button
+        android:id="@+id/button_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STOP" />
 
-            <Button android:id="@+id/btn_start"
-                android:text="START SERVICE"
-                android:onClick="startService"
-                android:layout_margin="8dp" android:layout_height="48dp" android:layout_width="48dp"/>
-
-            <Button android:id="@+id/btn_stop"
-                android:text="STOP SERVICE"
-                android:onClick="stopService"
-                android:layout_margin="8dp" android:layout_height="48dp" android:layout_width="48dp"/>
-
-            <Button android:id="@+id/btn_next"
-                android:text="NEXT ACTIVITY"
-                android:onClick="nextActivity"
-                android:layout_margin="8dp" android:layout_height="48dp" android:layout_width="48dp"/>
-        </LinearLayout>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NEXT ACTIVITY" />
 </LinearLayout>

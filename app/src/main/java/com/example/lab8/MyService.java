@@ -13,34 +13,42 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 public class MyService extends Service {
-    private MediaPlayer soundPlayer;
-    private final String CHANNEL_ID = "channelId";
+
+    private static final String CHANNEL_ID = "MusicChannel";
+    private MediaPlayer mediaPlayer;
 
     @Override
     public void onCreate() {
-        soundPlayer = MediaPlayer.create(this, R.raw.song);
-        soundPlayer.setLooping(false);
+        super.onCreate();
+        mediaPlayer = MediaPlayer.create(this, R.raw.song); // Убедись, что song.mp3 лежит в папке res/raw
+        mediaPlayer.setLooping(true);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         createNotificationChannel();
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_music)
                 .setContentTitle("My Music Player")
                 .setContentText("Music is playing")
+                .setSmallIcon(R.drawable.ic_music) // убедись, что иконка есть
                 .build();
 
         startForeground(1, notification);
-        soundPlayer.start();
+
+        mediaPlayer.start();
+
         return START_STICKY;
     }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID, "Service Channel", NotificationManager.IMPORTANCE_DEFAULT);
+                    CHANNEL_ID,
+                    "Music Playback",
+                    NotificationManager.IMPORTANCE_LOW
+            );
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
@@ -48,7 +56,11 @@ public class MyService extends Service {
 
     @Override
     public void onDestroy() {
-        soundPlayer.stop();
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
     }
 
     @Nullable
