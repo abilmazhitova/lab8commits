@@ -20,16 +20,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/button_start"
-            android:text="START"
-            android:onClick="onClick"
-            android:layout_margin="8dp" android:layout_height="40dp" android:layout_width="40dp"/>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical" android:gravity="center"
+            android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button_end"
-            android:text="STOP"
-            android:onClick="onClick"
-            android:layout_margin="8dp" android:layout_height="40dp" android:layout_width="40dp"/>
+            <Button android:id="@+id/btn_start"
+                android:text="START SERVICE"
+                android:onClick="startService"
+                android:layout_margin="8dp" android:layout_height="48dp" android:layout_width="48dp"/>
+
+            <Button android:id="@+id/btn_stop"
+                android:text="STOP SERVICE"
+                android:onClick="stopService"
+                android:layout_margin="8dp" android:layout_height="48dp" android:layout_width="48dp"/>
+
+            <Button android:id="@+id/btn_next"
+                android:text="NEXT ACTIVITY"
+                android:onClick="nextActivity"
+                android:layout_margin="8dp" android:layout_height="48dp" android:layout_width="48dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
